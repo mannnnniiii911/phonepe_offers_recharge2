@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --primary-purple: #6426AD;
+    --dark-purple: #4F168F;
+    --secondary-purple: #813FC9;
+    --light-purple: #F2EAFE;
+    --bg-page: #F1F3F9;
+    --bg-card: #FFFFFF;
+    --text-primary: #151B2B;
+    --text-secondary: #71809A;
+    --border-light: #E7E8EF;
+    --success-green: #16A34A;
+    --alert-red: #FF3448;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #F1F3F9;
+    color: #151B2B;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Custom Gradients and Utilities matching PhonePe reference */
+.bg-phonepe-header {
+  background: linear-gradient(135deg, #4F168F 0%, #6426AD 50%, #762BBF 100%);
+}
+
+.bg-phonepe-btn {
+  background: linear-gradient(90deg, #5B1B9D 0%, #6E2DB5 50%, #8736CB 100%);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bg-phonepe-btn:hover {
+  background: linear-gradient(90deg, #4E1588 0%, #6124A5 50%, #7B2EBA 100%);
+  box-shadow: 0 4px 14px rgba(100, 38, 173, 0.35);
+}
+
+.bg-phonepe-btn:active {
+  transform: scale(0.985);
+}
+
+.phonepe-card {
+  background: #FFFFFF;
+  border-radius: 26px;
+  box-shadow: 0 4px 20px -2px rgba(21, 27, 43, 0.05), 0 2px 6px -1px rgba(21, 27, 43, 0.02);
+  border: 1px solid #E7E8EF;
+}
+
+.phonepe-card-inner {
+  border-radius: 20px;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F3F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C7CBD6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A0A6B5;
+}
