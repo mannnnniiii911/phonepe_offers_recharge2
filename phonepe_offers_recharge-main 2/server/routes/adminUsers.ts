@@ -68,7 +68,7 @@ adminUsersRouter.post('/', requireRole(['owner']), async (req: AuthenticatedRequ
 // PUT /api/admin/users/:id/role - Change user role (Owner only)
 adminUsersRouter.put('/:id/role', requireRole(['owner']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { role, status } = req.body;
 
     const user = await db.get('SELECT id, username, role FROM admin_users WHERE id = ?', [id]) as { id: string; username: string; role: string } | undefined;
@@ -103,7 +103,7 @@ adminUsersRouter.put('/:id/role', requireRole(['owner']), async (req: Authentica
 // DELETE /api/admin/users/:id - Delete administrator (Owner only)
 adminUsersRouter.delete('/:id', requireRole(['owner']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     if (id === req.admin?.id) {
       return res.status(400).json({ error: 'You cannot delete your own account.' });
