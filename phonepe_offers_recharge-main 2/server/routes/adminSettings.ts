@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { db } from '../db';
-import { requireAuth, requireRole, logAudit, type AuthenticatedRequest } from '../auth';
-import { getPersistentPaymentSettings, isSupabasePaymentSettingsConfigured, savePersistentPaymentSettings, uploadPaymentQr } from '../supabasePaymentSettings';
+import { db } from '../db.js';
+import { requireAuth, requireRole, logAudit, type AuthenticatedRequest } from '../auth.js';
+import { getPersistentPaymentSettings, isSupabasePaymentSettingsConfigured, savePersistentPaymentSettings, uploadPaymentQr } from '../supabasePaymentSettings.js';
 
 export const adminSettingsRouter = Router();
 
