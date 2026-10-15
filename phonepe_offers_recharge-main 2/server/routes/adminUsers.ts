@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
-import { db } from '../db';
-import { requireAuth, requireRole, logAudit, type AuthenticatedRequest } from '../auth';
+import { db } from '../db.js';
+import { requireAuth, requireRole, logAudit, type AuthenticatedRequest } from '../auth.js';
 import crypto from 'crypto';
 
 export const adminUsersRouter = Router();
