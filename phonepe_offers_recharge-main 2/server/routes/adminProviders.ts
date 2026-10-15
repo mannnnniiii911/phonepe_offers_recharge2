@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { db } from '../db';
-import { requireAuth, requireRole, logAudit, type AuthenticatedRequest } from '../auth';
+import { db } from '../db.js';
+import { requireAuth, requireRole, logAudit, type AuthenticatedRequest } from '../auth.js';
 import crypto from 'crypto';
 
 export const adminProvidersRouter = Router();
