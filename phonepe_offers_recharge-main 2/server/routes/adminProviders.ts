@@ -89,7 +89,7 @@ adminProvidersRouter.post('/', requireRole(['owner', 'manager']), async (req: Au
 // PUT /api/admin/providers/:id - Edit provider
 adminProvidersRouter.put('/:id', requireRole(['owner', 'manager']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { name, brandColor, badgeBg, textColor, tagline, logoUrl, description, isActive, displayOrder } = req.body;
 
     const existing = await db.get('SELECT id, name FROM network_providers WHERE id = ?', [id]) as { id: string; name: string } | undefined;
@@ -129,7 +129,7 @@ adminProvidersRouter.put('/:id', requireRole(['owner', 'manager']), async (req: 
 // PATCH /api/admin/providers/:id/toggle - Toggle active status
 adminProvidersRouter.patch('/:id/toggle', requireRole(['owner', 'manager']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const provider = await db.get('SELECT id, name, is_active FROM network_providers WHERE id = ?', [id]) as {
       id: string;
       name: string;
@@ -168,7 +168,7 @@ adminProvidersRouter.patch('/:id/toggle', requireRole(['owner', 'manager']), asy
 // DELETE /api/admin/providers/:id - Safe deletion check
 adminProvidersRouter.delete('/:id', requireRole(['owner']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     const provider = await db.get('SELECT id, name FROM network_providers WHERE id = ?', [id]) as { id: string; name: string } | undefined;
     if (!provider) {
