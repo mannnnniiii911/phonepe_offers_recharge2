@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
-import { db } from '../db';
+import { db } from '../db.js';
 import {
   generateToken,
   setAuthCookie,
@@ -11,7 +11,7 @@ import {
   recordFailedLogin,
   resetLoginRateLimit,
   type AuthenticatedRequest,
-} from '../auth';
+} from '../auth.js';
 
 export const authRouter = Router();
 
