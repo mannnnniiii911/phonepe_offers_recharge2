@@ -92,7 +92,7 @@ adminOrdersRouter.get('/stats', requireRole(['owner', 'manager', 'viewer']), asy
  */
 adminOrdersRouter.patch('/:id/status', requireRole(['owner', 'manager']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { status, notes } = req.body;
 
     const validStatuses = ['pending_verification', 'pending', 'submitted_for_review', 'paid', 'failed', 'cancelled'];
@@ -158,7 +158,7 @@ adminOrdersRouter.patch('/:id/status', requireRole(['owner', 'manager']), async 
  */
 adminOrdersRouter.get('/:id', requireRole(['owner', 'manager', 'viewer']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     const order = await db.get(`
       SELECT * FROM recharge_orders WHERE id = ? OR order_ref = ?
