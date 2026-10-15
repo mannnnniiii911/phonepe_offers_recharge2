@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { db } from './db';
+import { db } from './db.js';
 import crypto from 'crypto';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'antigravity-phonepe-admin-supersecret-jwt-key-2026';
