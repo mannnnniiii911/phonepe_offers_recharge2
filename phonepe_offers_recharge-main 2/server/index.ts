@@ -16,7 +16,7 @@ import { ordersRouter } from './routes/orders';
 import { adminOrdersRouter } from './routes/adminOrders';
 import { paymentClicksRouter } from './routes/paymentClicks';
 
-const app = express();
+export const app = express();
 const PORT = process.env.PORT || 5001;
 
 // Middlewares
@@ -66,14 +66,33 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
   res.status(500).json({ error: 'Internal server error occurred.' });
 });
 
-// Initialize PostgreSQL tables (and seed defaults on first run) before accepting traffic
-initDatabase()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`🚀 [PhonePe-Recharge Backend] Running on http://localhost:${PORT}`);
+// Initialize the database once per running process/serverless instance.
+let databaseReady: Promise<void> | undefined;
+
+export function ensureDatabaseReady(): Promise<void> {
+  if (!databaseReady) {
+    databaseReady = initDatabase().catch((err) => {
+      // Allow a later request to retry after a transient database failure.
+      databaseReady = undefined;
+      throw err;
     });
-  })
-  .catch((err) => {
-    console.error('[DB] Failed to initialize PostgreSQL database:', err);
-    process.exit(1);
-  });
+  }
+  return databaseReady;
+}
+
+// Local development uses a persistent listener. Vercel imports the Express app
+// as a serverless handler and must not start its own listening socket.
+if (process.env.VERCEL !== '1') {
+  ensureDatabaseReady()
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`🚀 [PhonePe-Recharge Backend] Running on http://localhost:${PORT}`);
+      });
+    })
+    .catch((err) => {
+      console.error('[DB] Failed to initialize PostgreSQL database:', err);
+      process.exit(1);
+    });
+}
+
+export default app;
