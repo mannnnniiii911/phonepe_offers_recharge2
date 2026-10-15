@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { db } from '../db';
-import { requireAuth, requireRole, logAudit } from '../auth';
-import type { AuthenticatedRequest } from '../auth';
+import { db } from '../db.js';
+import { requireAuth, requireRole, logAudit } from '../auth.js';
+import type { AuthenticatedRequest } from '../auth.js';
 
 export const adminOrdersRouter = Router();
 
