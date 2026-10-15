@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import crypto from 'crypto';
-import { db } from '../db';
+import { db } from '../db.js';
 
 export const ordersRouter = Router();
 
