@@ -115,7 +115,7 @@ adminSubmissionsRouter.get('/', async (req, res) => {
 // POST /api/admin/submissions/:id/reveal - Reveal unmasked phone number (Audited)
 adminSubmissionsRouter.post('/:id/reveal', requireRole(['owner', 'manager']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     const record = await db.get('SELECT id, mobile_number FROM customer_submissions WHERE id = ?', [id]) as {
       id: string;
@@ -229,7 +229,7 @@ adminSubmissionsRouter.get('/export', requireRole(['owner', 'manager']), async (
 // DELETE /api/admin/submissions/:id - Delete / Anonymize submission (Owner only)
 adminSubmissionsRouter.delete('/:id', requireRole(['owner']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const existing = await db.get('SELECT id FROM customer_submissions WHERE id = ?', [id]);
 
     if (!existing) {
