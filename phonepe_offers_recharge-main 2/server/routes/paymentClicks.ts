@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import crypto from 'crypto';
-import { db } from '../db';
-import { recordSupabasePaymentClick } from '../supabase';
+import { db } from '../db.js';
+import { recordSupabasePaymentClick } from '../supabase.js';
 
 export const paymentClicksRouter = Router();
 
@@ -84,10 +84,9 @@ paymentClicksRouter.post('/payment-clicks', async (req, res) => {
 });
 
 // Alias for compatibility
-paymentClicksRouter.post('/track/payment-click', async (req, res) => {
-  // Delegate to main handler
-  req.url = '/payment-clicks';
-  paymentClicksRouter.handle(req, res, () => {});
+paymentClicksRouter.post('/track/payment-click', (_req, res) => {
+  // Preserve the POST method and body while routing legacy clients to the canonical endpoint.
+  return res.redirect(307, '/api/payment-clicks');
 });
 
 /**
