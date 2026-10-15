@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { db } from '../db';
+import { db } from '../db.js';
 import crypto from 'crypto';
-import { getPersistentPaymentSettings, isSupabasePaymentSettingsConfigured } from '../supabasePaymentSettings';
+import { getPersistentPaymentSettings, isSupabasePaymentSettingsConfigured } from '../supabasePaymentSettings.js';
 
 export const publicRouter = Router();
 
