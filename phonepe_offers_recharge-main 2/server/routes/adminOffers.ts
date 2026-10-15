@@ -96,7 +96,7 @@ adminOffersRouter.post('/', requireRole(['owner', 'manager']), async (req: Authe
 // PUT /api/admin/offers/:id - Update offer
 adminOffersRouter.put('/:id', requireRole(['owner', 'manager']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { title, message, subtitle, bannerUrl, providerId, timerMode, durationMinutes, startTime, endTime, status, displayOrder } = req.body;
 
     const existing = await db.get('SELECT id, title FROM special_offers WHERE id = ?', [id]) as { id: string; title: string } | undefined;
@@ -147,7 +147,7 @@ adminOffersRouter.put('/:id', requireRole(['owner', 'manager']), async (req: Aut
 // PATCH /api/admin/offers/:id/status - Pause, activate, or end early
 adminOffersRouter.patch('/:id/status', requireRole(['owner', 'manager']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { status } = req.body;
 
     const offer = await db.get('SELECT id, title, status FROM special_offers WHERE id = ?', [id]) as { id: string; title: string; status: string } | undefined;
@@ -170,7 +170,7 @@ adminOffersRouter.patch('/:id/status', requireRole(['owner', 'manager']), async 
 // DELETE /api/admin/offers/:id - Delete offer
 adminOffersRouter.delete('/:id', requireRole(['owner', 'manager']), async (req: AuthenticatedRequest, res) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const offer = await db.get('SELECT id, title FROM special_offers WHERE id = ?', [id]) as { id: string; title: string } | undefined;
     if (!offer) {
       return res.status(404).json({ error: 'Offer not found.' });
