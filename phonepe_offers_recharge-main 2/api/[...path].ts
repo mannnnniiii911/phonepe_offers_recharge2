@@ -1,4 +1,4 @@
-import app, { ensureDatabaseReady } from '../server/index';
+import app, { ensureDatabaseReady } from '../server/index.js';
 
 // Vercel invokes this function for /api/* requests.
 // Keep database initialization shared across warm invocations.
