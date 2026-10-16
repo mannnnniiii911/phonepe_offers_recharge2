@@ -477,7 +477,7 @@ async function seedInitialData() {
     }
     const existingQr = await db.get("SELECT setting_value FROM website_settings WHERE setting_key = 'qr_code_url'");
     if (!existingQr) {
-      await db.run("INSERT INTO website_settings (setting_key, setting_value, updated_at, updated_by) VALUES ('qr_code_url', '/assets/upi-qr.jpg', ?, 'system')", [now]);
+      await db.run("INSERT INTO website_settings (setting_key, setting_value, updated_at, updated_by) VALUES ('qr_code_url', '/assets/upi-qr.svg', ?, 'system')", [now]);
     }
   } catch (_e) {}
 
