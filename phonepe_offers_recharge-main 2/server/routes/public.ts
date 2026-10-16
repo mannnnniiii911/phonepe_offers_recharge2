@@ -136,8 +136,10 @@ publicRouter.get('/settings', async (_req, res) => {
         privacyNoticeText: settings.privacy_notice_text || 'By entering your number, you consent to processing your mobile number and operator for recharge estimation.',
         privacyNoticeVersion: settings.privacy_notice_version || 'v1.0',
         customerSupportContact: settings.customer_support_contact || settings.support_contact || '',
-        upiId: settings.upi_id || 'sujalshaw8902@nyes',
-        qrCodeUrl: settings.qr_code_url || '/assets/upi-qr.jpg',
+        // Checkout payment details are intentionally hardcoded to the verified production destination.
+        // Do not let stale persisted/admin settings silently redirect customer payments.
+        upiId: 'qwerty779@ibl',
+        qrCodeUrl: '/assets/upi-qr.svg',
       },
     });
   } catch (err) {
