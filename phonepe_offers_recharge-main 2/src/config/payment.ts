@@ -2,7 +2,7 @@
  * Centralized UPI Payment Configuration
  *
  * Update these values in ONE place to change payment details across the entire application.
- * The QR code image should be placed at: public/assets/upi-qr.jpg
+ * The corrected QR code is stored at: public/assets/upi-qr.svg
  */
 
 export const PAYMENT_CONFIG = {
