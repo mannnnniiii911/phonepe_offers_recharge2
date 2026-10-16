@@ -13,7 +13,7 @@ export const PAYMENT_CONFIG = {
   payeeName: 'PhonePe Recharge',
 
   /** Path to the uploaded UPI QR code image (relative to public/) */
-  qrCodePath: '/assets/upi-qr.jpg',
+  qrCodePath: '/assets/upi-qr.svg',
 
   /**
    * Whether the QR code is static (amount not embedded) or dynamic.
