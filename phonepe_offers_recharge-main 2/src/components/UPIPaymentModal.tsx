@@ -98,10 +98,9 @@ export const UPIPaymentModal: React.FC<UPIPaymentModalProps> = ({ isOpen, onClos
           if (data.settings.customerSupportContact) {
             setSupportContact(data.settings.customerSupportContact);
           }
-          // UPI ID is intentionally hardcoded in PAYMENT_CONFIG; API settings must not override it.
-          if (data.settings.qrCodeUrl) {
-            setActiveQrCodeUrl(data.settings.qrCodeUrl);
-          }
+          // Payment QR is intentionally hardcoded alongside PAYMENT_CONFIG.
+          // Ignore persisted/admin QR URLs so a stale image cannot redirect payments.
+          setActiveQrCodeUrl(PAYMENT_CONFIG.qrCodePath);
         }
       })
       .catch(() => {});
