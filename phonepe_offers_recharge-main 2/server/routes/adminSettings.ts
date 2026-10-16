@@ -23,6 +23,9 @@ adminSettingsRouter.get('/', async (_req, res) => {
     }
 
     if (isSupabasePaymentSettingsConfigured()) Object.assign(settings, await getPersistentPaymentSettings());
+    // The checkout destination is intentionally fixed in code; do not display stale saved values as active.
+    settings.upi_id = 'qwerty779@ibl';
+    settings.qr_code_url = '/assets/upi-qr.svg';
     res.json({ success: true, settings });
   } catch (err) {
     console.error('[ADMIN_API_ERROR] GET /settings:', err);
