@@ -123,28 +123,36 @@ export const QRPaymentPanel: React.FC<QRPaymentPanelProps> = ({ amount, orderRef
         </div>
       )}
 
-      {/* 4. Actual configured/uploaded UPI QR code (visible throughout) */}
-      <div className="flex justify-center pt-1 pb-1">
-        <div className="p-2.5 bg-white rounded-2xl border border-purple-200/80 shadow-sm flex items-center justify-center">
-          <img
-            src={activeQrPath}
-            alt={`UPI Payment QR Code for ₹${amount}`}
-            className="w-48 h-48 sm:w-52 sm:h-52 object-contain rounded-xl"
-          />
-        </div>
-      </div>
+      {/* 4. Show a QR only when a valid QR path is configured */}
+      {activeQrPath ? (
+        <>
+          <div className="flex justify-center pt-1 pb-1">
+            <div className="p-2.5 bg-white rounded-2xl border border-purple-200/80 shadow-sm flex items-center justify-center">
+              <img
+                src={activeQrPath}
+                alt={`UPI Payment QR Code for ₹${amount}`}
+                className="w-48 h-48 sm:w-52 sm:h-52 object-contain rounded-xl"
+              />
+            </div>
+          </div>
 
-      {/* 5. Save QR button */}
-      <div>
-        <button
-          type="button"
-          onClick={handleSaveQR}
-          className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-white hover:bg-purple-50 text-[#6426AD] border border-purple-300 hover:border-[#6426AD] font-bold text-xs sm:text-sm rounded-xl transition-all shadow-sm cursor-pointer active:scale-98"
-        >
-          <Download className="w-4 h-4" />
-          <span>Save QR</span>
-        </button>
-      </div>
+          {/* 5. Save QR button */}
+          <div>
+            <button
+              type="button"
+              onClick={handleSaveQR}
+              className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-white hover:bg-purple-50 text-[#6426AD] border border-purple-300 hover:border-[#6426AD] font-bold text-xs sm:text-sm rounded-xl transition-all shadow-sm cursor-pointer active:scale-98"
+            >
+              <Download className="w-4 h-4" />
+              <span>Save QR</span>
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm font-semibold text-amber-900">
+          Payment QR is temporarily unavailable. Please try again later.
+        </div>
+      )}
 
       {/* 6. Professional instruction line */}
       <p className="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed px-2">
