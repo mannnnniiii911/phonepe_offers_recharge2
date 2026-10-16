@@ -92,7 +92,18 @@ export const UPIPaymentModal: React.FC<UPIPaymentModalProps> = ({ isOpen, onClos
   // Fetch website settings for support contact, upiId, and qrCodeUrl
   useEffect(() => {
     fetch('/api/settings')
-      .then((res) => res.json())
+      .then(async (res) => {
+        const raw = await res.text();
+        if (!raw.trim()) throw new Error(`Settings API returned an empty response (HTTP ${res.status})`);
+        let data: any;
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(`Settings API returned non-JSON content (HTTP ${res.status})`);
+        }
+        if (!res.ok) throw new Error(data?.error || `Settings API failed (HTTP ${res.status})`);
+        return data;
+      })
       .then((data) => {
         if (data.success && data.settings) {
           if (data.settings.customerSupportContact) {
@@ -201,9 +212,18 @@ export const UPIPaymentModal: React.FC<UPIPaymentModalProps> = ({ isOpen, onClos
           }),
         });
 
-        const data = await response.json();
+        const raw = await response.text();
+        if (!raw.trim()) {
+          throw new Error(`Order API returned an empty response (HTTP ${response.status}). Check Vercel API/runtime logs.`);
+        }
+        let data: any;
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          throw new Error(`Order API returned non-JSON content (HTTP ${response.status}). Check Vercel API routing and runtime logs.`);
+        }
         if (!response.ok) {
-          throw new Error(data.error || 'Failed to initialize payment order');
+          throw new Error(data?.error || `Failed to initialize payment order (HTTP ${response.status})`);
         }
 
         orderCreatedRef.current = targetRef;
