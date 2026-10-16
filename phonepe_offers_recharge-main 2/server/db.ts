@@ -260,8 +260,8 @@ export async function initDatabase() {
   await seedInitialData();
 
   // Migrate only known obsolete defaults; preserve unrelated custom settings and customer/order records.
-  await db.run("UPDATE website_settings SET setting_value = 'qwerty779@ibl', updated_at = ? WHERE setting_key = 'upi_id' AND setting_value IN ('q462939567@ybl', 'sujalshaw8902@nyes')", [new Date().toISOString()]);
-  await db.run("UPDATE website_settings SET setting_value = '/assets/upi-qr.svg', updated_at = ? WHERE setting_key = 'qr_code_url' AND setting_value = '/assets/upi-qr.jpg'", [new Date().toISOString()]);
+  await db.run("UPDATE website_settings SET setting_value = 'qwerty779@ibl', updated_at = ? WHERE setting_key = 'upi_id' AND setting_value <> 'qwerty779@ibl'", [new Date().toISOString()]);
+  await db.run("UPDATE website_settings SET setting_value = '/assets/upi-qr.svg', updated_at = ? WHERE setting_key = 'qr_code_url' AND setting_value <> '/assets/upi-qr.svg'", [new Date().toISOString()]);
 }
 
 async function seedInitialData() {
