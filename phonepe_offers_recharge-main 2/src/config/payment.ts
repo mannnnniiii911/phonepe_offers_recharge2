@@ -2,7 +2,7 @@
  * Centralized UPI Payment Configuration
  *
  * Update these values in ONE place to change payment details across the entire application.
- * The corrected QR code is stored at: public/assets/upi-qr.svg
+ * The corrected QR code is stored at: public/assets/upi-qr.jpg
  */
 
 export const PAYMENT_CONFIG = {
@@ -13,7 +13,7 @@ export const PAYMENT_CONFIG = {
   payeeName: 'PhonePe Recharge',
 
   /** Path to the uploaded UPI QR code image (relative to public/) */
-  qrCodePath: '/assets/upi-qr.svg',
+  qrCodePath: '/assets/upi-qr.jpg',
 
   /**
    * Whether the QR code is static (amount not embedded) or dynamic.
