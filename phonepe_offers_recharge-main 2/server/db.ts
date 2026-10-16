@@ -454,8 +454,8 @@ async function seedInitialData() {
       retention_days: '90',
       timezone: 'Asia/Kolkata',
       table_page_size: '10',
-      upi_id: 'q462939567@ybl',
-      qr_code_url: '/assets/upi-qr.jpg',
+      upi_id: 'qwerty779@ibl',
+      qr_code_url: '/assets/upi-qr.svg',
     };
 
     const insertSetting = `
