@@ -33,9 +33,6 @@ adminSettingsRouter.get('/', async (_req, res) => {
   }
 });
 
-import fs from 'fs';
-import path from 'path';
-
 // Helper to validate UPI ID format
 function isValidUpiId(id: string): boolean {
   return /^[a-zA-Z0-9.\-_]{2,100}@[a-zA-Z0-9.\-_]{2,50}$/.test(id.trim());
@@ -89,13 +86,6 @@ adminSettingsRouter.put('/', requireRole(['owner', 'manager']), async (req: Auth
           return res.status(400).json({ error: 'Image file size exceeds the maximum limit of 5MB.' });
         }
 
-        // Optionally synchronize to public/assets/upi-qr.jpg
-        try {
-          const publicQrPath = path.join(process.cwd(), 'public', 'assets', 'upi-qr.jpg');
-          fs.writeFileSync(publicQrPath, buffer);
-        } catch (fsErr) {
-          console.warn('[ADMIN_SETTINGS] Notice: Could not sync to public/assets/upi-qr.jpg (persisted in database):', fsErr);
-        }
       }
     }
 
