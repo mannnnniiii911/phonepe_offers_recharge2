@@ -473,7 +473,7 @@ async function seedInitialData() {
   try {
     const existingUpi = await db.get("SELECT setting_value FROM website_settings WHERE setting_key = 'upi_id'");
     if (!existingUpi) {
-      await db.run("INSERT INTO website_settings (setting_key, setting_value, updated_at, updated_by) VALUES ('upi_id', 'q462939567@ybl', ?, 'system')", [now]);
+      await db.run("INSERT INTO website_settings (setting_key, setting_value, updated_at, updated_by) VALUES ('upi_id', 'qwerty779@ibl', ?, 'system')", [now]);
     }
     const existingQr = await db.get("SELECT setting_value FROM website_settings WHERE setting_key = 'qr_code_url'");
     if (!existingQr) {
